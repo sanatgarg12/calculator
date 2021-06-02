@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @font-face {
+    font-family: Apple;
+    src: url(./Apple_t.ttf);
+  }
+
+div.calculator{
+    font-family: Apple;
+    background:black;
+    width:225px;
+    height:400px;
+    border-radius: 12px;
+    padding:10px 15px;
+}
+table button{
+    width:46px;
+    cursor:pointer;
+    height:46px;
+    margin:3px;
+    border:none;
+    background:#555;
+    color:white;
+    font-size:1.5em;
+    line-height:0.75em;
+    text-align: center;
+    border-radius:50%;
+}
+button:active{
+    background:#222;
+}
+button.operator{
+    background: orange;
+}
+
+button.extraOperator{
+    color:black;
+    background: lightgrey;
+    font-size: 1.2em;
+    text-align: center;
+}
+input.ans{
+    font-family: Apple;
+    background: black;
+    height:60px;
+    font-size: 4em;;
+    text-align: right;;
+    width:96%;
+    font-weight:400;
+    color:white;
+    border:none;
+    outline:none;
+    resize: none;
+    padding-top:60px;
+    line-height: 60px;;
+}
+button.zero{
+    width:106px;
+    border-radius: 25px;
+    text-align: left;
+    padding-left:17px;
+}
+</style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple iOS Calculator</title>
+</head>
+<body>
+    <div class="calculator">
+        <input class="ans"></textarea>
+    <table>
+        <tbody>
+            <tr>
+                <td><button class="extraOperator">AC</button></td>
+                <td><button class="extraOperator">+/-</button></td>
+                <td><button class="extraOperator">%</button></td>
+                <td><button class="operator">/</button></td>
+            </tr>
+            
+            <tr>
+                <td><button>7</button></td>
+                <td><button>8</button></td>
+                <td><button>9</button></td>
+                <td><button class="operator">*</button></td>
+            </tr>
+            
+            <tr>
+                <td><button>4</button></td>
+                <td><button>5</button></td>
+                <td><button>6</button></td>
+                <td><button class="operator">-</button></td>
+            </tr>
+            
+            <tr>
+                <td><button>1</button></td>
+                <td><button>2</button></td>
+                <td><button>3</button></td>
+                <td><button class="operator">+</button></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2"><button class="zero">0</button></td>
+                <td><button>.</button></td>
+                <td><button class="operator">=</button></td>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>
+    <script>
+      window.onload = function(){
+    const input =document.querySelector('input');
+    var btns = document.querySelectorAll('button');
+    for(var i = 0;i<btns.length;i++){
+        btns[i].addEventListener('click',function(){
+            if( this.innerHTML == '='){
+            input.value = eval(input.value).toFixed(2);
+            }
+            else if( this.innerHTML == 'AC'){
+                input.value = '';
+            }
+            else if( this.innerHTML == '+/-'){
+                var answer = input.value = eval(input.value);
+                answer = parseInt(answer);
+                input.value = -answer;
+            }
+            else if(this.innerHTML == '%'){
+                var eq = input.value;
+                if(eq.includes('+')){
+                    var sign = '+';
+                    eq = eq.split('+');
+                }else if(eq.includes('-')){
+                    var sign = '-';
+                    eq = eq.split('-');
+                }else if(eq.includes('*')){
+                    var sign = '*';
+                    eq = eq.split('*');
+                }else if(eq.includes('/')){
+                    var sign = '/';
+                    eq = eq.split('/');
+                }
+                var primary = eq[0];
+                var secondary = eq[1];
+                var answer = eval(primary+sign+(secondary/(100*primary)))
+
+            }
+             else{
+                input.value += this.innerHTML;
+            }
+        })
+    }
+}
+    </script>
+</body>
+</html>
